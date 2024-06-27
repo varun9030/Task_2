@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation with Feedback</title>
+    <style>
+        .error {
+            color: red;
+        }
+        input:invalid, textarea:invalid {
+            border: 2px solid red;
+        }
+        input:invalid + .error, textarea:invalid + .error {
+            display: inline;
+        }
+        .error {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="validateForm(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <span id="nameError" class="error">This field is required</span><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error">A valid email address is required</span><br><br>
+
+        <label for="website">Website:</label>
+        <input type="url" id="website" name="website" required>
+        <span id="websiteError" class="error">A valid URL is required</span><br><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        <span id="messageError" class="error">This field is required</span><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function validateForm(event) {
+            const formElements = document.querySelectorAll('input, textarea');
+            formElements.forEach((element) => {
+                const errorElement = document.getElementById(element.name + 'Error');
+                if (!element.checkValidity()) {
+                    errorElement.style.display = 'inline';
+                } else {
+                    errorElement.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
